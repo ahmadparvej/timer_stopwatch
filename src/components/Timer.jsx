@@ -1,32 +1,28 @@
 import React from 'react'
+import styles from './TimerSw.module.css'
 
 const Timer = () => {
-    const [timer,setTimer]=React.useState(10);
-    React.useEffect(()=>{
+    const [timer,setTimer]=React.useState(20);
+    let handleStart = ()=>{
         let id=setInterval(() => {
-            setTimer((t)=>{
-                if(t===0){
+            setTimer((timer)=>{
+                if(timer===0){
                     clearInterval(id);
                     console.log("Interval cleared");
-                    return t;
+                    return timer;
                 }
-                return t-1
+                return timer-1
             })
         }, 1000);
-        return ()=>{
-            clearInterval(id)
-            console.log("Unmounted");
-        }
-    },[])
+    }
   return (
-    <div>timer
-        <div>{timer}</div>
+    <div>
+        <div><h1 className={styles.timers}>{timer}</h1></div>
         <div>
-            <button>START</button>
-            <button>RESET</button>
+            <button className={styles.start} onClick={handleStart}>START</button>
+            <button className={styles.reset} onClick={()=>setTimer(20)}>RESET</button>
         </div>
     </div>
-
   )
 }
 
